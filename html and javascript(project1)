@@ -1,0 +1,118 @@
+html file!<--------------------------------------------------------------------------------------------------->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css"/>
+   
+</head>
+<body>
+    <div id="container">
+    </div>
+    <div>
+       
+        <ul>
+
+        </ul>
+
+       
+
+    </div>
+ 
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+javascript file!(script.js)<-------------------------------------------------------------------------------------------->
+
+function awaitstatus(){
+
+    try{$container=document.getElementById("container");
+    $h1=document.createElement('h1');
+    $h1.innerText="Ice and Fire Api"
+    $h1.id="myh1"
+    $container.appendChild($h1)
+    
+    
+    $h1.style.backgroundColor ="lightgrey";
+    
+    //adding paragraph to say some below details
+    $para=document.createElement("p")
+    $para.innerText="below displaying books";
+    $para.style.backgroundColor="grey";
+    $container.appendChild($para);
+    $para.style.fontSize="25px"
+    $container.style.textAlign="center"
+    
+    
+    
+    
+    fetch("https://www.anapioficeandfire.com/api/books")
+    .then(res=>{
+       return res.json()
+    
+    })
+    .then(data=>{
+        i=0;
+        data.forEach(user=>{
+            $book=document.createElement('h3')
+            $container.appendChild($book)
+            i++;
+            const bookcontainer=`<h2>${"book"+i}</h2><hr>`;
+            const markup = `<li>${user.url}</li>`;
+            const markup1=`<p><strong>name: </strong>${user.name}</p>`;
+            const markup2=`<p><strong>isbn: </strong>${user.isbn}</p>`;
+            const markup3=`<p><strong>pages: </strong>${user.numberOfPages}</p>`;
+            const markup4=`<p><strong>author: </strong>${user.authors}</p>`;
+            const markup5=`<p><strong>publisher: </strong>${user.publisher}</p>`;
+            const markup6=`<p><strong>released: </strong>${user.released}</p>`;
+            const markup7=`<p><strong>characters: </strong>[<br>${user.characters[0]},<br>${user.characters[1]},<br>${user.characters[2]},<br>${user.characters[3]},<br>${user.characters[4]} ]</p>`;
+            
+            
+            document.querySelector('ul').insertAdjacentHTML("beforeend",bookcontainer)
+            document.querySelector('ul').insertAdjacentHTML("beforeend",markup)
+            document.querySelector('ul').insertAdjacentHTML("beforeend",markup1)
+            document.querySelector('ul').insertAdjacentHTML("beforeend",markup2)
+            document.querySelector('ul').insertAdjacentHTML("beforeend",markup3)
+            document.querySelector('ul').insertAdjacentHTML("beforeend",markup4)
+            document.querySelector('ul').insertAdjacentHTML("beforeend",markup5)
+            document.querySelector('ul').insertAdjacentHTML("beforeend",markup6)
+            document.querySelector('ul').insertAdjacentHTML("beforeend",markup7,)
+           
+        })
+    })
+    
+    .catch((err)=>console.log(err))
+    
+    }
+    catch(error){
+    
+        console.log(error)
+    }
+
+
+}
+
+async function asyncstatus(){
+    try{
+        console.log("hi")
+        res=await awaitstatus;
+        console.log(res);
+        
+    }
+
+catch(error){
+console.log(error)
+}
+
+
+}
+awaitstatus();
+asyncstatus();
